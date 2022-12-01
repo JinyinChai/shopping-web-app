@@ -8,6 +8,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {addProduct} from "../redux/cartRedux";
 import {useDispatch} from "react-redux";
+import {publicRequest} from "../requestMethods";
 
 const Container = styled.div`
     
@@ -133,7 +134,7 @@ const Product = () => {
     useEffect(() => {
         const getProduct = async () => {
             try {
-                const res = await axios.get("http://localhost:5001/api/products/find/" + id);
+                const res = await publicRequest.get("/products/find/" + id);
                 setProduct(res.data);
             } catch (err){
 
