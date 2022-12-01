@@ -1,4 +1,10 @@
 import styled from "styled-components";
+import {useEffect, useState} from "react";
+import {userRequest} from "../requestMethods";
+import {login} from "../redux/apiCalls";
+import {useDispatch, useSelector} from "react-redux";
+import axios from "axios";
+import {Navigate} from "react-router";
 
 const Container = styled.div`
     width: 100vw;
@@ -48,6 +54,10 @@ const Button = styled.button`
   background-color: teal;
   color: white;
   cursor: pointer;
+  &:disabled {
+    color: green;
+    cursor: not-allowed;
+  }
 `
 
 const AccountType = styled.div`
@@ -73,28 +83,91 @@ const Desc = styled.label`
 `
 
 const Register = () => {
+
+    const [firstname, setFirstname] = useState(null);
+    const [lastname, setLastname] = useState(null);
+    const [username, setUsername] = useState(null);
+    const [email, setEmail] = useState(null);
+    const [password, setPassword] = useState(null);
+    const [confirmPassword, setConfirmPassword] = useState(null);
+    const [userType, setUserType] = useState(null);
+    let seller = false;
+    let admin = false;
+    const dispatch = useDispatch();
+
+    const handleInputChange = (e) => {
+        const{id, value} = e.target;
+        if(id === "firstname"){
+            setFirstname(value);
+        } else if (id === "lastname"){
+            setLastname(value);
+        } else if (id === "email"){
+            setEmail(value);
+        } else if (id === "password"){
+            setPassword(value);
+        } else if (id === "confirmPassword"){
+            setConfirmPassword(value);
+        } else if (id === "username") {
+            setUsername(value);
+        }
+    }
+
+    const setType = (e) => {
+        setUserType(e.target.value);
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            if (userType === "seller"){
+                seller = true;
+            } else if (userType === "admin"){
+                admin = true;
+            }
+            const res = await axios.post("http://localhost:5001/api/auth/register", {
+                firstname: firstname,
+                lastname: lastname,
+                username: username,
+                password: password,
+                email: email,
+                confirmPassword: confirmPassword,
+                isAdmin: admin,
+                isSeller: seller,
+            });
+        } catch (err) {
+            console.log(err);
+        }
+        await login(dispatch, {username, password});
+    }
+
+
+
+
     return (
         <Container>
             <Wrapper>
                 <Title>CREATE AN ACCOUNT</Title>
                 <Form>
-                    <Input placeholder="first name"/>
-                    <Input placeholder="last name"/>
-                    <Input placeholder="username"/>
-                    <Input placeholder="email"/>
-                    <Input placeholder="password"/>
-                    <Input placeholder="confirm password"/>
+                    <Input placeholder="first name" id="firstname" onChange= {(e) => handleInputChange(e)}/>
+                    <Input placeholder="last name" id="lastname" onChange= {(e) => handleInputChange(e)}/>
+                    <Input placeholder="username" id="username" onChange= {(e) => handleInputChange(e)}/>
+                    <Input placeholder="email" id="email"  onChange= {(e) => handleInputChange(e)}/>
+                    <Input placeholder="password" type="password" id="password"  onChange= {(e) => handleInputChange(e)}/>
+                    <Input placeholder="confirm password" type="password" id="confirmPassword" onChange= {(e) => handleInputChange(e)}/>
                     <AccountType>
                         <Desc>Account Type</Desc>
-                        <Input2 type="radio" id="buyer" name="acc_type" value="HTML"/>
+                        <Input2 type="radio" id="buyer" name="account_type" value="buyer" onClick={setType.bind(this)}/>
                         <Label htmlFor="buyer">Buyer</Label>
-                        <Input2 type="radio" id="seller" name="acc_type" value="HTML"/>
+                        <Input2 type="radio" id="seller" name="account_type" value="seller" onClick={setType.bind(this)}/>
                         <Label htmlFor="seller">Seller</Label>
+                        <Input2 type="radio" id="admin" name="account_type" value="admin" onClick={setType.bind(this)}/>
+                        <Label htmlFor="admin">Admin</Label>
                     </AccountType>
                     <Agreement>
                         By creating an account, I consent to the processing of my personal data in accordance with the <b>PRIVACY POLICY</b>
                     </Agreement>
-                    <Button>CREATE</Button>
+                    {/*disabled={isFetching}*/}
+                    <Button onClick={handleSubmit}>CREATE</Button>
                 </Form>
             </Wrapper>
         </Container>

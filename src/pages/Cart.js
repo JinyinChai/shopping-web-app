@@ -3,6 +3,14 @@ import Navbar from "../components/Navbar";
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import {Add, Remove} from "@material-ui/icons";
+import {useSelector} from "react-redux";
+import {useEffect, useState} from "react";
+import axios from "axios";
+import StripeCheckout from "react-stripe-checkout";
+import {useNavigate} from "react-router";
+import {userRequest} from "../requestMethods";
+
+const KEY = "pk_test_51M7rkFKl0OVVHlCKOGf5QJttLaHV3SVz13mStIQDQykDhp5gO0TxWZcHjjzjw83K72MU4CXezcbGEveeSCcdJSiy005ckr206F";
 
 const Container = styled.div`
     
@@ -160,7 +168,33 @@ const SummaryButton = styled.button`
 `
 
 
+
 const Cart = () => {
+    const cart = useSelector(state => state.cart);
+    const [stripeToken, setStripeToken] = useState(null);
+    const history = useNavigate();
+
+    const onToken = (token) => {
+        setStripeToken(token);
+    }
+
+    useEffect(() => {
+        const makeRequest = async () => {
+            try {
+                const res = await userRequest.post("checkout/payment",{
+                    tokenId: stripeToken.id,
+                    // amount: cart.total * 100,
+                    amount: 500,
+                });
+                history("/success", { state:{StripeData: res.data, cart: cart}});
+            } catch(err){
+
+            }
+        };
+        //&& cart.total >= 1
+        stripeToken  && makeRequest();
+    }, [stripeToken, cart.total, history]);
+
     return (
         <Container>
             <Navbar/>
@@ -177,51 +211,33 @@ const Cart = () => {
                 </Top>
                 <Bottom>
                     <Info>
-                        <Product>
+                        {cart.products.map(product => (<Product>
                             <ProductDetail>
-                                <Image src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A"/>
+                                <Image src={product.img}/>
                                 <Details>
-                                    <ProductName><strong>Product: </strong>JESSIE THUNDER SHOES</ProductName>
-                                    <ProductID><strong>ID: </strong>12345</ProductID>
-                                    <ProductColor color="black"/>
-                                    <ProductSize><strong>Size: </strong>37.5</ProductSize>
+                                    <ProductName><strong>Product: </strong>{product.title}</ProductName>
+                                    <ProductID><strong>ID: </strong>{product._id}</ProductID>
+                                    <ProductColor color={product.color}/>
+                                    <ProductSize><strong>Size: </strong>{product.size}</ProductSize>
                                 </Details>
                             </ProductDetail>
                             <PriceDetail>
                                 <ProductAmountContainer>
                                     <Add/>
-                                    <ProductAmount>2</ProductAmount>
+                                    <ProductAmount>{product.quantity}</ProductAmount>
                                     <Remove/>
                                 </ProductAmountContainer>
-                                <ProductPrice>$ 30</ProductPrice>
+                                <ProductPrice>$ {product.price * product.quantity}</ProductPrice>
                             </PriceDetail>
-                        </Product>
+                        </Product>))}
                         <Hr/>
-                        <Product>
-                            <ProductDetail>
-                                <Image src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A"/>
-                                <Details>
-                                    <ProductName><strong>Product: </strong>JESSIE THUNDER SHOES</ProductName>
-                                    <ProductID><strong>ID: </strong>12345</ProductID>
-                                    <ProductColor color="black"/>
-                                    <ProductSize><strong>Size: </strong>37.5</ProductSize>
-                                </Details>
-                            </ProductDetail>
-                            <PriceDetail>
-                                <ProductAmountContainer>
-                                    <Add/>
-                                    <ProductAmount>2</ProductAmount>
-                                    <Remove/>
-                                </ProductAmountContainer>
-                                <ProductPrice>$ 30</ProductPrice>
-                            </PriceDetail>
-                        </Product>
+
                     </Info>
                     <Summary>
                         <SummaryTitle>ORDER SUMMARY</SummaryTitle>
                         <SummaryItem>
                             <SummaryItemText>Subtotal</SummaryItemText>
-                            <SummaryItemPrice>$ 80</SummaryItemPrice>
+                            <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
                         </SummaryItem>
                         <SummaryItem>
                             <SummaryItemText>Estimated Shipping</SummaryItemText>
@@ -233,9 +249,17 @@ const Cart = () => {
                         </SummaryItem>
                         <SummaryItem type="total">
                             <SummaryItemText>Total</SummaryItemText>
-                            <SummaryItemPrice>$ 80</SummaryItemPrice>
+                            <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
                         </SummaryItem>
+                        <StripeCheckout
+                            name="Logo Shop"
+                            billingAddress
+                            ShippingAddress
+                            description={`Your total is $${cart.total}`}
+                            amount={cart.total * 100}
+                            token={onToken} stripeKey={KEY}>
                         <SummaryButton>CHECKOUT NOW</SummaryButton>
+                        </StripeCheckout>
                     </Summary>
                 </Bottom>
             </Wrapper>

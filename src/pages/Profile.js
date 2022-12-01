@@ -23,6 +23,8 @@ const Wrapper = styled.div`
 const Title = styled.h1`
     font-size: 24px;
   font-weight: 300;
+  font-weight: bold;
+  text-align: center;
 `
 
 const Form = styled.form`
@@ -46,7 +48,6 @@ const Input = styled.input`
 `
 
 
-
 const Button = styled.button`
     width: 40%;
   border: none;
@@ -65,28 +66,45 @@ const Error = styled.span`
     color: red;
 `
 
-const Login = () => {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const dispatch = useDispatch();
-    const {isFetching, error} = useSelector((state) => state.user);
+const Label = styled.label`
+    flex: 1;
+  min-width: 40%;
+  margin: 10px 0px;
+  padding: 10px;
+`
 
-    const handleClick = (e) => {
-        e.preventDefault();
-        login(dispatch, {username, password});
-    }
+const ButtonDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
+
+const Login = () => {
+    const user = useSelector((state) => state.user.currentUser);
+    // const [username, setUsername] = useState("");
+    // const [password, setPassword] = useState("");
+    // const dispatch = useDispatch();
+    // const {isFetching, error} = useSelector((state) => state.user);
+    //
+    // const handleClick = (e) => {
+    //     e.preventDefault();
+    //     login(dispatch, {username, password});
+    // }
 
     return (
         <Container>
             <Wrapper>
-                <Title>SIGN IN</Title>
+                <Title>Profile: {user.firstname} {user.lastname}</Title>
                 <Form>
-                    <Input placeholder="username" onChange={(e) => setUsername(e.target.value)}/>
-                    <Input placeholder="password" type="password" onChange={(e) => setPassword(e.target.value)}/>
-                    <Button onClick={handleClick} disabled={isFetching}>LOGIN</Button>
-                    {error && <Error>Something went wrong....</Error>}
-                    <Link>DO NOT YOU REMEMBER THE PASSWORD?</Link>
-                    <Link>CREATE A NEW ACCOUNT</Link>
+                    <Label>Username: {user.username}</Label>
+                    <Label>Email: {user.email}</Label>
+
+                    <ButtonDiv>
+                        <Button>Edit Profile</Button>
+                        <Button>Change Password</Button>
+                    </ButtonDiv>
+                    <Label>Orders</Label>
+
                 </Form>
             </Wrapper>
         </Container>
