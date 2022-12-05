@@ -1,4 +1,5 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {publicRequest} from "../requestMethods";
 
 const userRedux = createSlice({
     name: "cart",
@@ -39,9 +40,21 @@ const userRedux = createSlice({
         register_fail:(state) => {
             state.isFetching = false;
             state.isLoggedIn = false;
-        }
+        },
+        update_success:(state, action) => {
+            state.isFetching = false;
+            state.currentUser = action.payload;
+            state.isLoggedIn = true;
+        },
     },
 });
 
-export const {loginStart, loginSuccess, loginFail, userLogout} = userRedux.actions;
+export const deleteUserThunk = createAsyncThunk(
+    'users/deleteUser',
+    async (orderId) => {
+        const response = await publicRequest.delete("/users/delete/" + orderId);
+        return response.data;
+    })
+
+export const {loginStart, loginSuccess, loginFail, userLogout, update_success} = userRedux.actions;
 export default userRedux.reducer;

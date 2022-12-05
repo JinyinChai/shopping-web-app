@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import {useEffect, useState} from "react";
-import {userRequest} from "../requestMethods";
+import {publicRequest, userRequest} from "../requestMethods";
 import {login} from "../redux/apiCalls";
 import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
@@ -124,7 +124,7 @@ const Register = () => {
             } else if (userType === "admin"){
                 admin = true;
             }
-            const res = await axios.post("http://localhost:5001/api/auth/register", {
+            const res = await publicRequest.post("/auth/register", {
                 firstname: firstname,
                 lastname: lastname,
                 username: username,

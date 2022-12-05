@@ -2,13 +2,14 @@ import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
-import {Add, Remove} from "@material-ui/icons";
+import {Add, Remove, Person} from "@material-ui/icons";
 import {useLocation} from "react-router";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {addProduct} from "../redux/cartRedux";
 import {useDispatch} from "react-redux";
 import {publicRequest} from "../requestMethods";
+import {Link} from "react-router-dom";
 
 const Container = styled.div`
     
@@ -119,6 +120,15 @@ const Button = styled.button`
   }
 `
 
+const SellerInfoContainer = styled.div`
+    
+`
+
+const Desc1 = styled.p`
+    font-size: 20px;
+  margin-top: 20px;
+`
+
 const Product = () => {
 
     const location = useLocation();
@@ -129,6 +139,8 @@ const Product = () => {
     const[color, setColor] = useState("");
     const[size, setSize] = useState("");
     const dispatch = useDispatch();
+    const[seller, setSeller] = useState({});
+    const[createdTime, setCreatedTime] = useState(null);
 
 
     useEffect(() => {
@@ -136,12 +148,23 @@ const Product = () => {
             try {
                 const res = await publicRequest.get("/products/find/" + id);
                 setProduct(res.data);
+                setCreatedTime(res.data.createdAt.substring(0,10));
+                const getSeller = async () => {
+                    try {
+                        const res2 = await publicRequest.get("/users/find/" + res.data.seller);
+                        setSeller(res2.data);
+                    } catch (err){
+
+                    }
+                };
+                getSeller();
             } catch (err){
 
             }
         };
         getProduct();
     }, [id]);
+
 
     const handleQuantity = (type) => {
         if (type === "dec"){
@@ -194,6 +217,16 @@ const Product = () => {
                         </AmountContainer>
                         <Button onClick={handleClick}>ADD TO CART</Button>
                     </AddContainer>
+                    <SellerInfoContainer>
+                        <Link to={`/publicProfile/${seller._id}`}>
+                        <Desc1>Seller: {seller.username}
+
+                                <Person/>
+
+                        </Desc1>
+                        </Link>
+                    </SellerInfoContainer>
+                    <Desc>Created at: {createdTime}</Desc>
                 </InfoContainer>
             </Wrapper>
             <Footer/>

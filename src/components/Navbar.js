@@ -6,7 +6,8 @@ import {mobile} from "../responsive"
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../redux/apiCalls";
-import {Navigate} from "react-router";
+import {Navigate, useNavigate} from "react-router";
+import SearchResult from "../pages/SearchResult";
 
 const Container = styled.div`
     height: 60px;
@@ -59,6 +60,7 @@ const MenuItem = styled.div`
 const Navbar = () => {
     const quantity = useSelector(state => state.cart.quantity);
     const user = useSelector((state) => state.user.currentUser);
+    const navigate = useNavigate();
 
     const dispatch = useDispatch();
     const handleClick = (e) => {
@@ -67,30 +69,60 @@ const Navbar = () => {
         window.location.reload();
     };
 
+    const [search, setSearch] = useState(null);
+
+    const handleSearch = (e) => {
+        if (search){
+            let temp = search;
+            setSearch(null);
+            console.log(search);
+            navigate(`/search/${temp}`);
+        }
+
+    };
+
 
     return (
         <Container>
             <Wrapper>
                 <Left>
                     <SearchContainer>
-                        <Input/>
-                        <Search style={{color:"gray", fontSize:16}}/>
+                        <Input placeholder={"Search Product"} onChange={(event) => setSearch(event.target.value)}/>
+                            <Search style={{color:"gray", fontSize:16, cursor: "pointer"}} onClick={handleSearch}/>
                     </SearchContainer>
                 </Left>
-                <Center><Logo>Logo.</Logo></Center>
+                <Center>
+                    <Link to={"/"} style={{textDecoration: 'none', color: 'black'}}>
+                        <Logo>Logo.</Logo>
+                    </Link>
+                </Center>
                 <Right>
                     { user ?
                         <Right>
                             <MenuItem>Welcome, {user.username}</MenuItem>
                             <MenuItem onClick={handleClick}>Logout</MenuItem>
-                            <Link to="/profile">
-                                <MenuItem>
-
-                                    <Badge badgeContent={quantity} color="primary">
+                            { user.isSeller &&
+                                <Link to="/SellerProfile">
+                                    <MenuItem>
                                         <Person/>
-                                    </Badge>
-                                </MenuItem>
-                            </Link>
+                                    </MenuItem>
+                                </Link>
+                            }
+                            { user.isAdmin &&
+                                <Link to="/adminProfile">
+                                    <MenuItem>
+                                        <Person/>
+                                    </MenuItem>
+                                </Link>
+                            }
+                            { !user.isAdmin && !user.isSeller &&
+                                <Link to="/userProfile">
+                                    <MenuItem>
+                                        <Person/>
+                                    </MenuItem>
+                                </Link>
+                            }
+
                         </Right>
                     :   <Right>
                             <Link to="/register">
@@ -101,15 +133,16 @@ const Navbar = () => {
                             </Link>
                         </Right>
                     }
+                    {((user && !user.isSeller && !user.isAdmin) || !user) &&
+                        <Link to="/cart">
+                            <MenuItem>
 
-                    <Link to="/cart">
-                        <MenuItem>
-
-                                <Badge badgeContent={quantity} color="primary">
-                                    <ShoppingCartOutlined/>
-                                </Badge>
-                        </MenuItem>
-                    </Link>
+                                    <Badge badgeContent={quantity} color="primary">
+                                        <ShoppingCartOutlined/>
+                                    </Badge>
+                            </MenuItem>
+                        </Link>
+                    }
                 </Right>
             </Wrapper>
         </Container>

@@ -170,6 +170,7 @@ const SummaryButton = styled.button`
 
 
 const Cart = () => {
+    const user = useSelector((state) => state.user.currentUser);
     const cart = useSelector(state => state.cart);
     const [stripeToken, setStripeToken] = useState(null);
     const history = useNavigate();
@@ -184,7 +185,7 @@ const Cart = () => {
                 const res = await userRequest.post("checkout/payment",{
                     tokenId: stripeToken.id,
                     // amount: cart.total * 100,
-                    amount: 500,
+                    amount: cart.total * 100,
                 });
                 history("/success", { state:{StripeData: res.data, cart: cart}});
             } catch(err){
