@@ -51,8 +51,8 @@ const userRedux = createSlice({
 
 export const deleteUserThunk = createAsyncThunk(
     'users/deleteUser',
-    async (orderId) => {
-        const response = await publicRequest.delete("/users/delete/" + orderId);
+    async (userId) => {
+        const response = await publicRequest.delete("/users/delete/" + userId);
         return response.data;
     })
 

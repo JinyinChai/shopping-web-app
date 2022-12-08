@@ -161,8 +161,8 @@ const AdminProfile = () => {
     });
 
     const dispatch = useDispatch()
-    const deleteUserHandler = (productId) => {
-        dispatch(deleteUserThunk(productId));
+    const deleteUserHandler = (userId) => {
+        dispatch(deleteUserThunk(userId));
     }
 
     const handleClick = (e) => {
