@@ -1,9 +1,10 @@
 import {useLocation} from "react-router";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {userRequest} from "../requestMethods";
 import {Link} from "react-router-dom";
+import {paymentSucceed} from "../redux/cartRedux";
 
 const Success = () => {
     const location = useLocation();
@@ -33,6 +34,13 @@ const Success = () => {
 
     }, [cart, data, currentUser]);
 
+    const dispatch = useDispatch();
+
+    const handleClick = () => {
+        dispatch(
+            paymentSucceed());
+    };
+
     return (
         <div style={{
             height: "100vh",
@@ -45,7 +53,7 @@ const Success = () => {
             : `Successfully. Your order is being prepared...`}
             <Link to={"/"}>
                 <button style={{padding: 10,
-                marginTop: 20}}>Go to Homepage</button>
+                marginTop: 20}} onClick={handleClick}>Go to Homepage</button>
             </Link>
         </div>
     );

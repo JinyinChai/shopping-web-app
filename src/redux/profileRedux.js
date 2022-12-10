@@ -13,3 +13,10 @@ export const updateProfileThunk = async (dispatch, user) => {
         dispatch(loginFail());
     }
 }
+
+// export const updatePasswordThunk = createAsyncThunk(
+//     'users/updatePassword',
+//     async (product) => {
+//         const response = await publicRequest.put("/users/update/" + user._id, product);
+//         return response.data;
+//     })

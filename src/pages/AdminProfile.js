@@ -188,9 +188,9 @@ const AdminProfile = () => {
                             <Button>Edit Profile</Button>
                         </Link>
 
-                        <Link to="/editProfile">
-                            <Button style={{marginLeft: "20px"}}>Edit Profile</Button>
-                        </Link>
+                        {/*<Link to="/editPassword">*/}
+                        {/*    <Button style={{marginLeft: "20px"}}>Change Password</Button>*/}
+                        {/*</Link>*/}
                     </ButtonDiv1>
 
                     <ButtonDiv1 style={{marginTop: "30px"}}>
@@ -206,7 +206,7 @@ const AdminProfile = () => {
                         <OrderContainer>
                             <OrderDiv>
                                 <Link to={`/publicProfile/${user._id}`}>
-                                <Label>UserId: {user._id}</Label>
+                                <Label style={{cursor: "pointer"}}>UserId: {user._id}</Label>
                                 </Link>
                                 {/*<Link to={`/product/${product._id}`}>*/}
                                     <Label>Username: {user.username}</Label>
@@ -219,7 +219,8 @@ const AdminProfile = () => {
                             </OrderDiv>
                             {/*<ProductImg src={product.img}></ProductImg>*/}
                             <CloseDiv>
-                                <Close onClick={() => {deleteUserHandler(user._id); window.location.reload(false);}}/>
+                                {/*window.location.reload(false);*/}
+                                <Close onClick={() => {deleteUserHandler(user._id);}}/>
                             </CloseDiv>
                         </OrderContainer>
                     )) }

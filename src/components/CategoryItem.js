@@ -14,6 +14,7 @@ const Image = styled.img`
     width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 0.8;
 `;
 
 const Info = styled.div`
@@ -44,7 +45,7 @@ const Button = styled.button`
 const CategoryItem = ({item}) => {
     return (
         <Container>
-            <Link to={`/products/${item.cat}`}>
+            <Link to={`/products`}>
 
                 <Image src={item.img}/>
                 <Info>

@@ -3,11 +3,11 @@ import Navbar from "../components/Navbar";
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import {Add, Remove, Person} from "@material-ui/icons";
-import {useLocation} from "react-router";
+import {useLocation, useNavigate} from "react-router";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {addProduct} from "../redux/cartRedux";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {publicRequest} from "../requestMethods";
 import {Link} from "react-router-dom";
 
@@ -130,6 +130,7 @@ const Desc1 = styled.p`
 `
 
 const Product = () => {
+    const user = useSelector((state) => state.user.currentUser);
 
     const location = useLocation();
     const id = location.pathname.split("/")[2];
@@ -165,6 +166,7 @@ const Product = () => {
         getProduct();
     }, [id]);
 
+    const navigate = useNavigate();
 
     const handleQuantity = (type) => {
         if (type === "dec"){
@@ -175,8 +177,12 @@ const Product = () => {
     }
 
     const handleClick = () => {
-        dispatch(
-        addProduct({...product, quantity, color, size}));
+        if (!user){
+            navigate("/login");
+        } else {
+            dispatch(
+                addProduct({...product, quantity, color, size}));
+        }
     };
 
 

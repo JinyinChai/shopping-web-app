@@ -4,7 +4,8 @@ import {publicRequest, userRequest} from "../requestMethods";
 import {login} from "../redux/apiCalls";
 import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
-import {Navigate} from "react-router";
+import {Navigate, useNavigate} from "react-router";
+import {ArrowBack} from "@material-ui/icons";
 
 const Container = styled.div`
     width: 100vw;
@@ -26,6 +27,7 @@ const Wrapper = styled.div`
 const Title = styled.h1`
     font-size: 24px;
   font-weight: 300;
+  margin-left: 20px;
 `
 
 const Form = styled.form`
@@ -80,6 +82,10 @@ const Label = styled.label`
 
 const Desc = styled.label`
 
+`
+
+const Div1 = styled.div`
+    display: flex;
 `
 
 const Register = () => {
@@ -140,13 +146,17 @@ const Register = () => {
         await login(dispatch, {username, password});
     }
 
+    const goBack = useNavigate();
 
 
 
     return (
         <Container>
             <Wrapper>
-                <Title>CREATE AN ACCOUNT</Title>
+                <Div1>
+                    <ArrowBack style={{cursor: "pointer"}} onClick={() => goBack(-1)}/>
+                    <Title>CREATE AN ACCOUNT</Title>
+                </Div1>
                 <Form>
                     <Input placeholder="first name" id="firstname" onChange= {(e) => handleInputChange(e)}/>
                     <Input placeholder="last name" id="lastname" onChange= {(e) => handleInputChange(e)}/>

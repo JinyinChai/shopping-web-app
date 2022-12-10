@@ -175,7 +175,7 @@ const PublicProfile = () => {
             <Wrapper>
 
                     <Div1>
-                        <ArrowBack onClick={() => goBack(-1)}/>
+                        <ArrowBack style={{cursor: "pointer"}} onClick={() => goBack(-1)}/>
                         <Title>Profile: {seller.firstname} {seller.lastname}</Title>
                     </Div1>
 
@@ -189,8 +189,10 @@ const PublicProfile = () => {
                     {/*<Link to="/editProfile">*/}
                     {/*    <Button>Change Password</Button>*/}
                     {/*</Link>*/}
-                    <OrderTitle>Products</OrderTitle>
+
                     {products && products.map((product) => (
+                        <div>
+                        <OrderTitle>Products</OrderTitle>
                         <OrderContainer>
                             <OrderDiv>
                                 <Link to={`/product/${product._id}`}>
@@ -203,6 +205,7 @@ const PublicProfile = () => {
                             {/*    <Close onClick={() => {deleteOrderHandler(order._id); window.location.reload(false);}}/>*/}
                             {/*</CloseDiv>*/}
                         </OrderContainer>
+                        </div>
                     )) }
 
                 </Form>

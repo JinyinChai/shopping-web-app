@@ -82,12 +82,27 @@ const Div1 = styled.div`
 
 const EditProfile = () => {
 
-    const [user, setUser] = useState(useSelector((state) => state.user.currentUser));
+    const [temp, setTemp] = useState(useSelector((state) => state.user.currentUser));
+
+    const [password, setPassword] = useState(temp.Orinalpassword);
+
     const dispatch = useDispatch();
     const goBack = useNavigate();
-    let [myProfile, setProfile] = useState(
-        user
-    );
+
+    const [user, setUser] = useState({
+        username: temp.username,
+        firstname: temp.firstname,
+        lastname: temp.lastname,
+        password: temp.Originalpassword,
+        email: temp.email,
+        createdAt: temp.createdAt,
+        updatedAt: temp.updatedAt,
+        _id: temp._id,
+        isAdmin: temp.isAdmin,
+        isSeller: temp.isSeller,
+        __v: temp.__v,
+    })
+    // console.log(user);
 
 
     const saveProfile = (e) => {
@@ -121,6 +136,10 @@ const EditProfile = () => {
                     <InputDiv>
                         <span>email</span>
                         <Input defaultValue={user.email} onChange={(event) => setUser({...user, email: event.target.value})}/>
+                    </InputDiv>
+                    <InputDiv>
+                        <span>password</span>
+                        <Input type="password" defaultValue={user.password} onChange={(event) => setUser({...user, password: event.target.value})}/>
                     </InputDiv>
 
                     <Button onClick={saveProfile}>Update</Button>

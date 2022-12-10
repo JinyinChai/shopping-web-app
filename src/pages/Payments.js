@@ -221,7 +221,7 @@ const Payments = () => {
                 <Container>
                     <Wrapper>
                         <Div1>
-                            <ArrowBack onClick={handleClick}/>
+                            <ArrowBack style={{cursor: "pointer"}} onClick={handleClick}/>
                             <Title>Payments</Title>
                             <SearchContainer>
                                 <Input placeholder={"Postal Code"} onChange={(event) => setSearch(event.target.value)}/>
@@ -241,7 +241,7 @@ const Payments = () => {
                 <Container>
                     <Wrapper>
                         <Div1>
-                            <ArrowBack onClick={handleClick}/>
+                            <ArrowBack style={{cursor: "pointer"}} onClick={handleClick}/>
                             <Title>Payments</Title>
                             <SearchContainer>
                                 <Input placeholder={"Postal Code"} onChange={(event) => setSearch(event.target.value)}/>
@@ -255,7 +255,7 @@ const Payments = () => {
                                     <OrderContainer>
                                         <OrderDiv>
                                             <Link to={`/payment/${payment.id}`}>
-                                                <Label>Payment Id: {payment.id}</Label>
+                                                <Label style={{cursor: "pointer"}}>Payment Id: {payment.id}</Label>
                                             </Link>
                                             <Label>Payment Amount: ${payment.amount / 100}.00</Label>
                                             <Label>Customer: {payment.billing_details.name}</Label>
@@ -272,7 +272,7 @@ const Payments = () => {
                                     <OrderContainer>
                                         <OrderDiv>
                                             <Link to={`/payment/${payment.id}`}>
-                                                <Label>Payment Id: {payment.id}</Label>
+                                                <Label style={{cursor: "pointer"}}>Payment Id: {payment.id}</Label>
                                             </Link>
                                             <Label>Payment Amount: ${payment.amount / 100}.00</Label>
                                             <Label>Customer: {payment.billing_details.name}</Label>
