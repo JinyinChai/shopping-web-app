@@ -141,7 +141,9 @@ const UserProfile = () => {
                     {orders && orders.map((order) => (
                         <OrderContainer>
                             <OrderDiv>
-                                <Label>Order id: {order._id}</Label>
+                                <Link style={{cursor: "pointer"}} to={`/order/${order._id}`}>
+                                    <Label>Order id: {order._id}</Label>
+                                </Link>
                                 <Label>Order Amount: ${order.amount}</Label>
                             </OrderDiv>
                             <CloseDiv>

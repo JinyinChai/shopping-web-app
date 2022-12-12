@@ -20,6 +20,7 @@ import SearchResultNoMatch from "./pages/SearchResultNoMatch";
 import AddProduct from "./pages/AddProduct";
 import PaymentDetail from "./pages/PaymentDetail";
 import SearchPaymentNoMatch from "./pages/SearchPaymentNoMatch";
+import OrderDetail from "./pages/OrderDetail";
 
 const App = () => {
     const user = useSelector((state) => state.user.currentUser);
@@ -47,6 +48,7 @@ const App = () => {
               <Route path="/addProduct" element={<AddProduct/>}/>
               <Route path="/payment/:id" element={<PaymentDetail/>}/>
               <Route path="/searchPayment" element={<SearchPaymentNoMatch/>}/>
+              <Route path="/order/:id" element={<OrderDetail/>}/>
           </Routes>
         </BrowserRouter>
     );
