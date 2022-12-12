@@ -1,11 +1,8 @@
 import styled, {createGlobalStyle} from "styled-components";
 import {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {Link} from "react-router-dom";
 import {ArrowBack, Close} from "@material-ui/icons";
 import {useLocation, useNavigate} from "react-router";
 import {publicRequest} from "../requestMethods";
-import {deleteUserThunk} from "../redux/userRedux";
 
 const GlobalStyle = createGlobalStyle`
     body {
@@ -14,15 +11,8 @@ const GlobalStyle = createGlobalStyle`
 `
 
 const Container = styled.div`
-  //width: 100vw;
-  //height: 100vh;
-  //background-color: aquamarine;
-  //background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255,255,255,0.5)), #61dafb;
-  //background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255,255,255,0.5)),
-  //url("https://images.pexels.com/photos/6984650/pexels-photo-6984650.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940") center;
   background-size: cover;
   display: flex;
-  //align-items: center;
   justify-content: center;
 `
 
@@ -46,43 +36,11 @@ const Form = styled.form`
 
 
 
-const Input = styled.input`
-    flex: 1;
-  min-width: 40%;
-  margin: 10px 0px;
-  padding: 10px;
-`
-
-
-const Button = styled.button`
-    width: 40%;
-  border: none;
-  padding: 15px 20px;
-  background-color: teal;
-  color: white;
-  cursor: pointer;
-  margin-bottom: 10px;
-  &:disabled {
-    color: green;
-    cursor: not-allowed;
-  }
-`
-
-const Error = styled.span`
-    color: red;
-`
-
 const Label = styled.label`
     flex: 1;
   min-width: 40%;
   margin: 10px 0px;
   padding: 10px;
-`
-
-const ButtonDiv = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 `
 
 const Div1 = styled.div`
@@ -94,11 +52,6 @@ const OrderContainer = styled.div`
   margin-top: 20px;
 `
 
-
-const ProductImg = styled.img`
-  width: 20%;
-`
-
 const OrderDiv = styled.div`
   margin-top: 15px;
   width: 90%;
@@ -107,47 +60,12 @@ const OrderDiv = styled.div`
   align-items: flex-start;
 `
 
-const OrderTitle = styled.h1`
-  margin-top: 30px;
-  font-size: 24px;
-  font-weight: 300;
-  font-weight: bold;
-  text-align: center;
-`
-
-
-const UpdateButton = styled.button`
-  width: 100%;
-  border: none;
-  padding: 15px 20px;
-  background-color: teal;
-  color: white;
-  cursor: pointer;
-  margin-left: 10px;
-  margin-bottom: 30px;
-`
-
-const CloseDiv = styled.div`
-  margin-top: 15px;
-    width: 5%;
-  //display: flex;
-  align-items: flex-end;
-  cursor: pointer;
-`
-
-const ButtonDiv1 = styled.div`
-  //display: flex;
-  align-items: center;
-    justify-content: space-between;
-`
 
 const PaymentDetail = () => {
-    // const curUser = useSelector((state) => state.user.currentUser);
     const goBack = useNavigate();
     const location = useLocation();
     const id = location.pathname.split("/")[2];
 
-    // const stripe = require('stripe')(process.env.STRIPE_KEY);
 
     const[payment, setPayment] = useState(null);
 
@@ -163,11 +81,7 @@ const PaymentDetail = () => {
         };
         getPayment();
     });
-    //
-    // const dispatch = useDispatch()
-    // const deleteUserHandler = (productId) => {
-    //     // dispatch(deleteUserThunk(productId));
-    // }
+
 
     return (
         <div>

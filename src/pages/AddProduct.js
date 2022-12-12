@@ -35,13 +35,6 @@ const Form = styled.form`
   flex-direction: column;
 `
 
-const Link = styled.a`
-  margin: 5px 0px;
-  font-size: 12px;
-  text-decoration: underline;
-  cursor: pointer;
-`
-
 
 const Input = styled.input`
   flex: 1;
@@ -65,10 +58,6 @@ const Button = styled.button`
     color: green;
     cursor: not-allowed;
   }
-`
-
-const Error = styled.span`
-  color: red;
 `
 
 const InputDiv = styled.div`
@@ -135,15 +124,12 @@ const AddProduct = () => {
                         <Input placeholder="Product Title" id="title" onChange= {(e) => handleInputChange(e)}/>
                     </InputDiv>
                     <InputDiv>
-                        {/*<span>lastname</span>*/}
                         <Input placeholder="Description" id="desc" onChange= {(e) => handleInputChange(e)}/>
                     </InputDiv>
                     <InputDiv>
-                        {/*<span>username</span>*/}
                         <Input placeholder="Image Url" id="img" onChange= {(e) => handleInputChange(e)}/>
                     </InputDiv>
                     <InputDiv>
-                        {/*<span>email</span>*/}
                         <Input placeholder="price" id="price" onChange= {(e) => handleInputChange(e)}/>
                     </InputDiv>
 

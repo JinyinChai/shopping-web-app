@@ -34,13 +34,6 @@ const Form = styled.form`
   flex-direction: column;
 `
 
-const Link = styled.a`
-  margin: 5px 0px;
-  font-size: 12px;
-  text-decoration: underline;
-  cursor: pointer;
-`
-
 
 const Input = styled.input`
   flex: 1;
@@ -64,10 +57,6 @@ const Button = styled.button`
     color: green;
     cursor: not-allowed;
   }
-`
-
-const Error = styled.span`
-  color: red;
 `
 
 const InputDiv = styled.div`
@@ -102,14 +91,11 @@ const EditProfile = () => {
         isSeller: temp.isSeller,
         __v: temp.__v,
     })
-    // console.log(user);
 
 
     const saveProfile = (e) => {
         e.preventDefault();
         updateProfileThunk(dispatch, user);
-        // console.log("res" + response);
-        // updateUser(dispatch, response);
     }
 
     return (

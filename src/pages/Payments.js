@@ -5,8 +5,7 @@ import {Link} from "react-router-dom";
 import {ArrowBack, Close, Search} from "@material-ui/icons";
 import {useLocation, useNavigate} from "react-router";
 import {publicRequest} from "../requestMethods";
-import {deleteUserThunk} from "../redux/userRedux";
-import {logout} from "../redux/apiCalls";
+
 
 const GlobalStyle = createGlobalStyle`
     body {
@@ -15,15 +14,8 @@ const GlobalStyle = createGlobalStyle`
 `
 
 const Container = styled.div`
-  //width: 100vw;
-  //height: 100vh;
-  //background-color: aquamarine;
-  //background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255,255,255,0.5)), #61dafb;
-  //background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255,255,255,0.5)),
-  //url("https://images.pexels.com/photos/6984650/pexels-photo-6984650.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940") center;
   background-size: cover;
   display: flex;
-  //align-items: center;
   justify-content: center;
 `
 
@@ -45,34 +37,6 @@ const Form = styled.form`
   flex-direction: column;
 `
 
-
-
-// const Input = styled.input`
-//     flex: 1;
-//   min-width: 40%;
-//   margin: 10px 0px;
-//   padding: 10px;
-// `
-
-
-const Button = styled.button`
-    width: 40%;
-  border: none;
-  padding: 15px 20px;
-  background-color: teal;
-  color: white;
-  cursor: pointer;
-  margin-bottom: 10px;
-  &:disabled {
-    color: green;
-    cursor: not-allowed;
-  }
-`
-
-const Error = styled.span`
-    color: red;
-`
-
 const Label = styled.label`
     flex: 1;
   min-width: 40%;
@@ -80,11 +44,6 @@ const Label = styled.label`
   padding: 10px;
 `
 
-const ButtonDiv = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`
 
 const Div1 = styled.div`
   display: flex;
@@ -97,51 +56,12 @@ const OrderContainer = styled.div`
   margin-top: 20px;
 `
 
-
-const ProductImg = styled.img`
-  width: 20%;
-`
-
 const OrderDiv = styled.div`
   margin-top: 15px;
   width: 90%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-`
-
-const OrderTitle = styled.h1`
-  margin-top: 30px;
-  font-size: 24px;
-  font-weight: 300;
-  font-weight: bold;
-  text-align: center;
-`
-
-
-const UpdateButton = styled.button`
-  width: 100%;
-  border: none;
-  padding: 15px 20px;
-  background-color: teal;
-  color: white;
-  cursor: pointer;
-  margin-left: 10px;
-  margin-bottom: 30px;
-`
-
-const CloseDiv = styled.div`
-  margin-top: 15px;
-    width: 5%;
-  //display: flex;
-  align-items: flex-end;
-  cursor: pointer;
-`
-
-const ButtonDiv1 = styled.div`
-  //display: flex;
-  align-items: center;
-    justify-content: space-between;
 `
 
 const SearchContainer = styled.div`

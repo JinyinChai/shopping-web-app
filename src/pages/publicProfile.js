@@ -16,14 +16,9 @@ const GlobalStyle = createGlobalStyle`
 `
 
 const Container = styled.div`
-  //background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255,255,255,0.5)), #61dafb;
-  //width: 100vw;
-  //height: 100vh;
-  //background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255,255,255,0.5)),
-  //url("https://images.pexels.com/photos/6984650/pexels-photo-6984650.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940") center;
   background-size: cover;
   display: flex;
-  //align-items: center;
+
   justify-content: center;
 `
 
@@ -47,45 +42,12 @@ const Form = styled.form`
 `
 
 
-const Input = styled.input`
-    flex: 1;
-  min-width: 40%;
-  margin: 10px 0px;
-  padding: 10px;
-`
-
-
-const Button = styled.button`
-    width: 40%;
-  border: none;
-  padding: 15px 20px;
-  background-color: teal;
-  color: white;
-  cursor: pointer;
-  margin-bottom: 10px;
-  &:disabled {
-    color: green;
-    cursor: not-allowed;
-  }
-`
-
-const Error = styled.span`
-    color: red;
-`
-
 const Label = styled.label`
     flex: 1;
   min-width: 40%;
   margin: 10px 0px;
   padding: 10px;
   font-size: 20px;
-`
-
-const ButtonDiv = styled.div`
-  //display: flex;
-  //flex-direction: row;
-  //align-items: center;
-  //justify-content: space-between;
 `
 
 const OrderDiv = styled.div`
@@ -95,12 +57,7 @@ const OrderDiv = styled.div`
   align-items: flex-start;
 `
 
-const CloseDiv = styled.div`
-  margin-top: 15px;
-    width: 5%;
-  //display: flex;
-  align-items: flex-end;
-`
+
 
 const OrderContainer = styled.div`
     display: flex;
@@ -159,11 +116,7 @@ const PublicProfile = () => {
     }, [id]);
 
 
-    // const dispatch = useDispatch();
     const goBack = useNavigate();
-    // const deleteOrderHandler = (orderId) => {
-    //     dispatch(deleteOrderThunk(orderId));
-    // }
 
 
 
@@ -181,14 +134,6 @@ const PublicProfile = () => {
 
                 <Form>
                     <Label>Username: {seller.username}</Label>
-                    {/*<Label>Email: {seller.email}</Label>*/}
-                    {/*<Link to="/editProfile">*/}
-                    {/*    <Button>Edit Profile</Button>*/}
-                    {/*</Link>*/}
-
-                    {/*<Link to="/editProfile">*/}
-                    {/*    <Button>Change Password</Button>*/}
-                    {/*</Link>*/}
 
                     {products && products.map((product) => (
                         <div>
@@ -201,9 +146,7 @@ const PublicProfile = () => {
                                 <Label>Product id: {product._id}</Label>
                             </OrderDiv>
                             <ProductImg src={product.img}></ProductImg>
-                            {/*<CloseDiv>*/}
-                            {/*    <Close onClick={() => {deleteOrderHandler(order._id); window.location.reload(false);}}/>*/}
-                            {/*</CloseDiv>*/}
+
                         </OrderContainer>
                         </div>
                     )) }

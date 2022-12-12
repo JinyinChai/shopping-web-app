@@ -97,7 +97,6 @@ const Login = () => {
                     <Input placeholder="password" type="password" onChange={(e) => setPassword(e.target.value)}/>
                     <Button onClick={handleClick} disabled={isFetching}>LOGIN</Button>
                     {error && <Error>Something went wrong....</Error>}
-                    {/*<LinkContainer>DO NOT YOU REMEMBER THE PASSWORD?</LinkContainer>*/}
                     <Link to={"/register"}>
                         <LinkContainer>CREATE A NEW ACCOUNT</LinkContainer>
                     </Link>

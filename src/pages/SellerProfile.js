@@ -39,15 +39,6 @@ const Form = styled.form`
 `
 
 
-
-const Input = styled.input`
-    flex: 1;
-  min-width: 40%;
-  margin: 10px 0px;
-  padding: 10px;
-`
-
-
 const Button = styled.button`
     width: 40%;
   border: none;
@@ -62,21 +53,11 @@ const Button = styled.button`
   }
 `
 
-const Error = styled.span`
-    color: red;
-`
-
 const Label = styled.label`
     flex: 1;
   min-width: 40%;
   margin: 10px 0px;
   padding: 10px;
-`
-
-const ButtonDiv = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 `
 
 const Div1 = styled.div`
@@ -144,7 +125,7 @@ const SellerProfile = () => {
             }
         };
         getProducts();
-    }, [user._id]);
+    });
 
     const dispatch = useDispatch()
     const deleteProductHandler = (productId) => {
@@ -187,7 +168,7 @@ const SellerProfile = () => {
                             </OrderDiv>
                             <ProductImg src={product.img}></ProductImg>
                             <CloseDiv>
-                                <Close onClick={() => {deleteProductHandler(product._id); window.location.reload(false);}}/>
+                                <Close onClick={() => {deleteProductHandler(product._id);}}/>
                             </CloseDiv>
                         </OrderContainer>
                     )) }

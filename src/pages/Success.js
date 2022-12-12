@@ -12,21 +12,26 @@ const Success = () => {
     const cart = location.state.cart;
     const currentUser = useSelector((state) => state.user.currentUser);
     const [orderId, setOrderId] = useState(null);
+    const [created, setCreated] = useState(false);
 
     useEffect(() => {
         const createOrder = async () => {
+
             try {
-                const res = await userRequest.post("/orders", {
-                    userId: currentUser._id,
-                    products: cart.products.map((item) => ({
-                        productId: item._id,
-                        quantity: item.quantity,
-                    })),
-                    amount: cart.total,
-                    address: data.billing_details.address,
-                });
-                setOrderId(res.data._id);
-            } catch (err){
+                // if (cart.total === 0) {
+                    const res = await userRequest.post("/orders", {
+                        userId: currentUser._id,
+                        products: cart.products.map((item) => ({
+                            productId: item._id,
+                            quantity: item.quantity,
+                        })),
+                        amount: cart.total,
+                        address: data.billing_details.address,
+                    });
+                    setOrderId(res.data._id);
+                    setCreated(true);
+                // }
+            } catch (err) {
                 console.log(err);
             }
         };
@@ -40,6 +45,7 @@ const Success = () => {
         dispatch(
             paymentSucceed());
     };
+
 
     return (
         <div style={{

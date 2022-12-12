@@ -25,31 +25,6 @@ const Title = styled.h1`
   text-align: center;
 `
 
-const Top = styled.div`
-    display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px;
-`
-
-const TopButton = styled.button`
-    padding: 10px;
-  font-weight: 600;
-  cursor: pointer;
-  border: ${props => props.type === "filled" && "none"};
-  background-color: ${props => props.type === "filled" ? "black" : "transparent"};
-  color: ${props => props.type === "filled" && "white"};
-`
-
-const TopTexts = styled.div`
-    
-`
-
-const TopText = styled.span`
-    text-decoration: underline;
-  cursor: pointer;
-  margin: 0px 10px;
-`
 
 const Bottom = styled.div`
     display: flex;
@@ -184,7 +159,6 @@ const Cart = () => {
             try {
                 const res = await userRequest.post("checkout/payment",{
                     tokenId: stripeToken.id,
-                    // amount: cart.total * 100,
                     amount: cart.total * 100,
                 });
                 history("/success", { state:{StripeData: res.data, cart: cart}});
@@ -192,7 +166,6 @@ const Cart = () => {
 
             }
         };
-        //&& cart.total >= 1
         stripeToken  && makeRequest();
     }, [stripeToken, cart.total, history]);
 
@@ -202,14 +175,6 @@ const Cart = () => {
             <Announcement/>
             <Wrapper>
                 <Title>YOUR BAG</Title>
-                <Top>
-                    {/*<TopButton>CONTINUE SHOPPING</TopButton>*/}
-                    {/*<TopTexts>*/}
-                    {/*    <TopText>Shopping Bag(2)</TopText>*/}
-                    {/*    <TopText>Your Wishlist(0)</TopText>*/}
-                    {/*</TopTexts>*/}
-                    {/*<TopButton type="filled">CHECKOUT NOW</TopButton>*/}
-                </Top>
                 <Bottom>
                     <Info>
                         {cart.products.map(product => (<Product>

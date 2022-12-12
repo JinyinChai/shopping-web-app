@@ -14,15 +14,8 @@ const GlobalStyle = createGlobalStyle`
 `
 
 const Container = styled.div`
-  //width: 100vw;
-  //height: 100vh;
-  //background-color: aquamarine;
-  //background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255,255,255,0.5)), #61dafb;
-  //background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255,255,255,0.5)),
-  //url("https://images.pexels.com/photos/6984650/pexels-photo-6984650.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940") center;
   background-size: cover;
   display: flex;
-  //align-items: center;
   justify-content: center;
 `
 
@@ -45,15 +38,6 @@ const Form = styled.form`
 `
 
 
-
-const Input = styled.input`
-    flex: 1;
-  min-width: 40%;
-  margin: 10px 0px;
-  padding: 10px;
-`
-
-
 const Button = styled.button`
     width: 40%;
   border: none;
@@ -68,21 +52,11 @@ const Button = styled.button`
   }
 `
 
-const Error = styled.span`
-    color: red;
-`
-
 const Label = styled.label`
     flex: 1;
   min-width: 40%;
   margin: 10px 0px;
   padding: 10px;
-`
-
-const ButtonDiv = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 `
 
 const Div1 = styled.div`
@@ -94,10 +68,6 @@ const OrderContainer = styled.div`
   margin-top: 20px;
 `
 
-
-const ProductImg = styled.img`
-  width: 20%;
-`
 
 const OrderDiv = styled.div`
   margin-top: 15px;
@@ -115,17 +85,6 @@ const OrderTitle = styled.h1`
   text-align: center;
 `
 
-
-const UpdateButton = styled.button`
-  width: 100%;
-  border: none;
-  padding: 15px 20px;
-  background-color: teal;
-  color: white;
-  cursor: pointer;
-  margin-left: 10px;
-  margin-bottom: 30px;
-`
 
 const CloseDiv = styled.div`
   margin-top: 15px;
@@ -188,9 +147,6 @@ const AdminProfile = () => {
                             <Button>Edit Profile</Button>
                         </Link>
 
-                        {/*<Link to="/editPassword">*/}
-                        {/*    <Button style={{marginLeft: "20px"}}>Change Password</Button>*/}
-                        {/*</Link>*/}
                     </ButtonDiv1>
 
                     <ButtonDiv1 style={{marginTop: "30px"}}>
@@ -208,18 +164,11 @@ const AdminProfile = () => {
                                 <Link to={`/publicProfile/${user._id}`}>
                                 <Label style={{cursor: "pointer"}}>UserId: {user._id}</Label>
                                 </Link>
-                                {/*<Link to={`/product/${product._id}`}>*/}
                                     <Label>Username: {user.username}</Label>
-                                {/*</Link>*/}
                                 <Label>Full name: {user.firstname} {user.lastname}</Label>
                                 <Label>Email: {user.email}</Label>
-                                {/*<Link to={`/editProduct/${product._id}`}>*/}
-                                {/*    <UpdateButton>Update Product</UpdateButton>*/}
-                                {/*</Link>*/}
                             </OrderDiv>
-                            {/*<ProductImg src={product.img}></ProductImg>*/}
                             <CloseDiv>
-                                {/*window.location.reload(false);*/}
                                 <Close onClick={() => {deleteUserHandler(user._id);}}/>
                             </CloseDiv>
                         </OrderContainer>

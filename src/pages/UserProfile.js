@@ -16,14 +16,8 @@ const GlobalStyle = createGlobalStyle`
 `
 
 const Container = styled.div`
-  //background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255,255,255,0.5)), #61dafb;
-  //width: 100vw;
-  //height: 100vh;
-  //background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255,255,255,0.5)),
-  //url("https://images.pexels.com/photos/6984650/pexels-photo-6984650.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940") center;
   background-size: cover;
   display: flex;
-  //align-items: center;
   justify-content: center;
 `
 
@@ -44,15 +38,6 @@ const Form = styled.form`
     display: flex;
   flex-direction: column;
 `
-
-
-const Input = styled.input`
-    flex: 1;
-  min-width: 40%;
-  margin: 10px 0px;
-  padding: 10px;
-`
-
 
 const Button = styled.button`
     width: 40%;
@@ -79,12 +64,6 @@ const Label = styled.label`
   padding: 10px;
 `
 
-const ButtonDiv = styled.div`
-  //display: flex;
-  //flex-direction: row;
-  //align-items: center;
-  //justify-content: space-between;
-`
 
 const OrderDiv = styled.div`
   width: 90%;
@@ -133,7 +112,7 @@ const UserProfile = () => {
             }
         };
         getOrders();
-    }, [id]);
+    });
 
     const dispatch = useDispatch();
     const goBack = useNavigate();
@@ -158,9 +137,6 @@ const UserProfile = () => {
                             <Button>Edit Profile</Button>
                         </Link>
 
-                        {/*<Link to="/editProfile">*/}
-                        {/*    <Button>Change Password</Button>*/}
-                        {/*</Link>*/}
                     <OrderTitle>Orders</OrderTitle>
                     {orders && orders.map((order) => (
                         <OrderContainer>
@@ -169,7 +145,7 @@ const UserProfile = () => {
                                 <Label>Order Amount: ${order.amount}</Label>
                             </OrderDiv>
                             <CloseDiv>
-                                <Close onClick={() => {deleteOrderHandler(order._id); window.location.reload(false);}}/>
+                                <Close onClick={() => {deleteOrderHandler(order._id);}}/>
                             </CloseDiv>
                         </OrderContainer>
                     )) }

@@ -24,11 +24,6 @@ const Products = ({cat, filters, sort}) => {
                     : "/products");
                 setProducts(res.data.sort((a, b) => b.createdAt.localeCompare(a.createdAt)));
 
-                // console.log(res.data.sort((a, b) => parseInt(b.createdAt) - parseInt(a.createdAt)));
-                // setFilteredProducts(
-                //             [...products].sort((a, b) => a.createdAt - b.createdAt)
-                //         );
-
             } catch (err) {
 
             }
@@ -36,43 +31,9 @@ const Products = ({cat, filters, sort}) => {
         getProducts();
     }, [cat]);
 
-    // useEffect(() => {
-    //     setFilteredProducts(products.sort((a, b) => a.createdAt - b.createdAt)
-    //     );
-    //
-    // }, [products]);
-
-
-    // useEffect(() => {
-    //     cat && setFilteredProducts(
-    //         products.filter((item) => Object.entries(filters).every(([key, value]) => item[key].includes(value))
-    //         )
-    //     );
-    //
-    // }, [products, cat, filters]);
-
-//     useEffect(() => {
-//         if (sort === "newest") {
-//             setFilteredProducts(prev =>
-//                 [...prev].sort((a, b) => a.createdAt.localeCompare(b.createdAt))
-//             );
-//         } else if (sort === "asc") {
-//             setFilteredProducts(prev =>
-//                 [...prev].sort((a, b) => a.price - b.price)
-//             );
-//         } else {
-//             setFilteredProducts(prev =>
-//                 [...prev].sort((a, b) => b.price - a.price)
-//             );
-//         }
-//     }, [sort]);
-//
-//     // console.log(products);
     return (
         <Container>
-            {/*{cat ? filteredProducts.map((item) => (*/}
-            {/*    <Product item={item} key={item.id}/>*/}
-            {/*)) :*/}
+
             {products.map((item) => (
 
                 <Product item={item} key={item.id}/>
